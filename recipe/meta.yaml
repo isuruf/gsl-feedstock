@@ -1,4 +1,4 @@
-{% set version = "2.2.1" %}
+{% set version = "1.16" %}
 
 package:
   name: gsl
@@ -7,7 +7,7 @@ package:
 source:
   fn: gsl-{{ version }}.tar.gz
   url: http://ftpmirror.gnu.org/gsl/gsl-{{ version }}.tar.gz
-  sha256: 13d23dc7b0824e1405f3f7e7d0776deee9b8f62c62860bf66e7852d402b8b024
+  sha256: 73bc2f51b90d2a780e6d266d43e487b3dbd78945dd0b04b14ca5980fe28d2f53
 
 build:
   number: 0
