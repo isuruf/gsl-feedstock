@@ -1,27 +1,31 @@
+{% set version = "1.16" %}
+
 package:
-    name: gsl
-    version: 2.2.1
+  name: gsl
+  version: {{ version }}
 
 source:
-    fn: gsl-2.2.1.tar.gz
-    url: http://ftpmirror.gnu.org/gsl/gsl-2.2.1.tar.gz
-    sha256: 13d23dc7b0824e1405f3f7e7d0776deee9b8f62c62860bf66e7852d402b8b024
+  fn: gsl-{{ version }}.tar.gz
+  url: http://ftpmirror.gnu.org/gsl/gsl-{{ version }}.tar.gz
+  sha256: 73bc2f51b90d2a780e6d266d43e487b3dbd78945dd0b04b14ca5980fe28d2f53
 
 build:
-    number: 0
-    skip: True  # [win]
+  number: 0
+  skip: True  # [win]
 
 test:
-    commands:
-        - gsl-config --prefix
-        - conda inspect linkages -n _test gsl  # [linux]
+  commands:
+    - gsl-config --prefix
+    #- conda inspect linkages -p $PREFIX gsl  # [not win]
+    #- conda inspect objects -p $PREFIX gsl  # [osx]
 
 about:
-    home: http://www.gnu.org/software/gsl/
-    license: GPL-3.0
-    summary: GNU Scientific Library
+  home: http://www.gnu.org/software/gsl/
+  license: GPL-3.0
+  license_file: COPYING
+  summary: 'GNU Scientific Library.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
-        - kwilcox
+  recipe-maintainers:
+    - ocefpaf
+    - kwilcox
