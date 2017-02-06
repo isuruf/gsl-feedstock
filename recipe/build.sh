@@ -4,7 +4,7 @@
 export CPPFLAGS="${CPPFLAGS} -I${PREFIX}/include"
 export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
 
-LIBS="-lopenblas -lm" ./configure --prefix=$PREFIX
+LIBS="-lopenblas -lm" ./configure --prefix=$PREFIX || cat config.log
 
 make
 make check
