@@ -2,9 +2,7 @@
 
 # https://github.com/conda-forge/toolchain-feedstock/pull/11
 export CPPFLAGS="${CPPFLAGS} -I${PREFIX}/include"
-export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
-
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${PREFIX}/lib"
+export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib -Wl,-rpath=$PREFIX/lib"
 
 LIBS="-lopenblas -lm" ./configure --prefix=$PREFIX || cat config.log
 
