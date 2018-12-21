@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# https://github.com/conda-forge/gsl-feedstock/issues/34#issuecomment-449305702
+if [ "$(uname)" == "Darwin" ]; then
+    export LIBS="-lcblas"
+fi
 ./configure --prefix=${PREFIX}  \
             --host=${HOST}
 
