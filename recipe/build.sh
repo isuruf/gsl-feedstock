@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # https://github.com/conda-forge/gsl-feedstock/issues/34#issuecomment-449305702
-export LIBS="-lcblas"
+export LIBS="-lcblas -lm"
 
 ./configure --prefix=${PREFIX}  \
             --host=${HOST}
