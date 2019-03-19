@@ -11,7 +11,8 @@ make check
 make install
 
 rm "$PREFIX"/lib/libgslcblas.*
-ln -s "$PREFIX/lib/libcblas${SHLIB_EXT}" "$PREFIX/lib/libgslcblas${SHLIB_EXT}"
+CBLAS_IMPL=$(readlink $PREFIX/lib/libcblas${SHLIB_EXT})
+cp "$PREFIX/lib/${CBLAS_IMPL}" "$PREFIX/lib/libgslcblas${SHLIB_EXT}"
 
 if [ "$(uname)" == "Darwin" ]; then
     ln -s "$PREFIX/lib/libcblas${SHLIB_EXT}" "$PREFIX/lib/libgslcblas.0${SHLIB_EXT}"
