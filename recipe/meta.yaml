@@ -1,5 +1,4 @@
 {% set version = "2.4" %}
-{% set variant = "openblas" %}
 
 package:
   name: gsl
@@ -15,9 +14,8 @@ source:
     - bessel_test.diff
 
 build:
-  number: 1004
+  number: 1005
   features:
-    - blas_{{ variant }}  # [not win]
   run_exports:
     # tends to break at minor revs
     #    https://abi-laboratory.pro/index.php?view=timeline&l=gsl
@@ -28,11 +26,9 @@ requirements:
     - {{ compiler("c") }}
     - cmake  # [win]
   host:
-    - blas 1.1 {{ variant }}    # [not win]
-    - openblas                  # [not win]
+    - libblas
+    - libcblas
   run:
-    - blas 1.1 {{ variant }}    # [not win]
-    - openblas                  # [not win]
 
 test:
   commands:

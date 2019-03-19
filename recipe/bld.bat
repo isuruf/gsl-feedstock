@@ -9,3 +9,6 @@ if errorlevel 1 exit 1
 
 cmake --build . --config Release --target install
 if errorlevel 1 exit 1
+
+rm %LIBRARY_LIB%\gslcblas.lib
+cp %LIBRARY_LIB%\cblas.lib %LIBRARY_LIB%\gslcblas.lib
