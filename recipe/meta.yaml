@@ -36,9 +36,9 @@ test:
     - if not exist %LIBRARY_LIB%\\gsl.lib       exit 1   # [win]
     - if not exist %LIBRARY_LIB%\\gslcblas.lib  exit 1   # [win]
     - if not exist %LIBRARY_BIN%\\gsl.dll       exit 1   # [win]
-    - ls -al $PREFIX/lib/libgslcblas.so.3      # [linux]
+    - ls -al $PREFIX/lib/libgslcblas.so.0      # [linux]
     - ls -al $PREFIX/lib/libgslcblas.so        # [linux]
-    - ls -al $PREFIX/lib/libgslcblas.3.dylib   # [osx]
+    - ls -al $PREFIX/lib/libgslcblas.0.dylib   # [osx]
     - ls -al $PREFIX/lib/libgslcblas.dylib     # [osx]
 
 about:
