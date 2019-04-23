@@ -15,7 +15,7 @@ CBLAS_IMPL=$(readlink $PREFIX/lib/libcblas${SHLIB_EXT})
 cp "$PREFIX/lib/${CBLAS_IMPL}" "$PREFIX/lib/libgslcblas${SHLIB_EXT}"
 
 if [ "$(uname)" == "Darwin" ]; then
-    ln -s "$PREFIX/lib/libcblas${SHLIB_EXT}" "$PREFIX/lib/libgslcblas.0${SHLIB_EXT}"
+    ln -s "libcblas.3.dylib" "$PREFIX/lib/libgslcblas.0.dylib"
 elif [ "$(uname)" == "Linux" ]; then
-    ln -s "$PREFIX/lib/libcblas${SHLIB_EXT}" "$PREFIX/lib/libgslcblas${SHLIB_EXT}.0"
+    ln -s "libcblas.so.3" "$PREFIX/lib/libgslcblas.so.0"
 fi
