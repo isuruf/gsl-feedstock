@@ -17,7 +17,9 @@ cp "$PREFIX/lib/${CBLAS_IMPL}" "$PREFIX/lib/libgslcblas${SHLIB_EXT}"
 if [ "$(uname)" == "Darwin" ]; then
     ln -s "libcblas.3.dylib" "$PREFIX/lib/libgslcblas.0.dylib"
     rm "$PREFIX/lib/libcblas.3.dylib"
+    touch "$PREFIX/lib/libcblas.3.dylib"
 elif [ "$(uname)" == "Linux" ]; then
     ln -s "libcblas.so.3" "$PREFIX/lib/libgslcblas.so.0"
     rm "$PREFIX/lib/libcblas.so.3"
+    touch "$PREFIX/lib/libcblas.so.3"
 fi
