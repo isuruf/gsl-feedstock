@@ -14,7 +14,7 @@ source:
     - bessel_test.diff
 
 build:
-  number: 1005
+  number: 1006
   features:
   run_exports:
     # tends to break at minor revs
@@ -36,8 +36,6 @@ test:
     - if not exist %LIBRARY_LIB%\\gsl.lib       exit 1   # [win]
     - if not exist %LIBRARY_LIB%\\gslcblas.lib  exit 1   # [win]
     - if not exist %LIBRARY_BIN%\\gsl.dll       exit 1   # [win]
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: http://www.gnu.org/software/gsl/
