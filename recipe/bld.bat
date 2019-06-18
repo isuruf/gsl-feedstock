@@ -1,6 +1,8 @@
 mkdir build
 pushd build
 
+set "CFLAGS=-MD"
+
 cmake -G "NMake Makefiles" ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -D BUILD_SHARED_LIBS=ON ^
