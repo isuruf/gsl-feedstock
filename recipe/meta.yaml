@@ -10,8 +10,6 @@ source:
   patches:
     # diff from source distribution to https://github.com/ampl/gsl/tree/v2.4.0
     - patch_cmake_for_windows.diff  # [win]
-    # avoid "make check" error: https://savannah.gnu.org/bugs/?52927
-    - bessel_test.diff
 
 build:
   number: 0
