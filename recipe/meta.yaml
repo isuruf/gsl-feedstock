@@ -7,16 +7,13 @@ package:
 source:
   url: http://ftp.gnu.org/gnu/gsl/gsl-{{ version }}.tar.gz
   sha256: b782339fc7a38fe17689cb39966c4d821236c28018b6593ddb6fd59ee40786a8
-  patches:
-    # diff from source distribution to https://github.com/ampl/gsl/tree/v2.4.0
-    - patch_cmake_for_windows.diff  # [win]
 
 build:
   number: 0
   features:
   run_exports:
     # tends to break at minor revs
-    #    https://abi-laboratory.pro/index.php?view=timeline&l=gsl
+    # https://abi-laboratory.pro/index.php?view=timeline&l=gsl
     - {{ pin_subpackage("gsl", max_pin="x.x") }}
 
 requirements:
@@ -34,10 +31,8 @@ test:
     - if not exist %LIBRARY_LIB%\\gsl.lib       exit 1   # [win]
     - if not exist %LIBRARY_LIB%\\gslcblas.lib  exit 1   # [win]
     - if not exist %LIBRARY_BIN%\\gsl.dll       exit 1   # [win]
-    - ls -al $PREFIX/lib/libgslcblas.so.0      # [linux]
-    - ls -al $PREFIX/lib/libgslcblas.so        # [linux]
-    - ls -al $PREFIX/lib/libgslcblas.0.dylib   # [osx]
-    - ls -al $PREFIX/lib/libgslcblas.dylib     # [osx]
+    - ls -al $PREFIX/lib/libgslcblas{{ SHLIB_EXT }}  # [not win]
+    - ls -al $PREFIX/lib/libgslcblas*{{ SHLIB_EXT }}*  # [not win]
 
 about:
   home: http://www.gnu.org/software/gsl/
