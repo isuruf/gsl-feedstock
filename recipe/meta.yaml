@@ -22,7 +22,7 @@ build:
 requirements:
   build:
     - {{ compiler("c") }}
-    - autotools_clang_compiler   # [win]
+    - autotools_clang_conda   # [win]
   host:
     - libblas
     - libcblas
