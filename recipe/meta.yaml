@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  features:
+  skip:  True  # [win and vc<14]
   run_exports:
     # tends to break at minor revs
     # https://abi-laboratory.pro/index.php?view=timeline&l=gsl
@@ -22,7 +22,7 @@ build:
 requirements:
   build:
     - {{ compiler("c") }}
-    - cmake  # [win]
+    - autotools_clang_compiler   # [win]
   host:
     - libblas
     - libcblas
