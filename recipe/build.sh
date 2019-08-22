@@ -6,6 +6,7 @@ if [[ "$target_platform" == win* ]]; then
     export CPPFLAGS="$CPPFLAGS -DGSL_DLL -DWIN32"
     export CXXFLAGS="$CXXFLAGS -DGSL_DLL -DWIN32"
     export CFLAGS="$CFLAGS -DGSL_DLL -DWIN32"
+    cp $RECIPE_DIR/getopt.h .
     ./configure --prefix=${PREFIX} \
                 --disable-static || (cat config.log && exit 1)
     cat config.log
