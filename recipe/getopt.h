@@ -115,10 +115,6 @@ static char EMSG[] = "";
 #define	EMSG		""
 #endif
 
-static int getopt_internal(int, char * const *, const char *,
-			   const struct option *, int *, int);
-static int parse_long_options(char * const *, const char *,
-			      const struct option *, int *, int);
 static int gcd(int, int);
 static void permute_args(int, int, int, char * const *);
 
