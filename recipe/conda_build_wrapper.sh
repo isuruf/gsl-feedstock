@@ -36,7 +36,7 @@ if [[ "${REMOVE_LIB_PREFIX}" != "no" ]]; then
     done
 fi
 
-bash -e ./build.sh
+source ./build.sh
 
 if [[ -f "${PREFIX}/lib/${PKG_NAME}.lib" && -f "${PREFIX}/lib/${PKG_NAME}.dll.lib" ]]; then
     mv "${PREFIX}/lib/${PKG_NAME}.lib"     "${PREFIX}/lib/${PKG_NAME}_static.lib"
