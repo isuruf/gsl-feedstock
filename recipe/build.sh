@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # https://github.com/conda-forge/gsl-feedstock/issues/34#issuecomment-449305702
-export LIBS="-lcblas -lm"
+if [[ "$target_platform" == win* ]]; then
+    export LIBS="-lcblas"
+else
+    export LIBS="-lcblas -lm"
+fi
 
 ./configure --prefix=${PREFIX}  \
             --host=${HOST} || (cat config.log && exit 1)
