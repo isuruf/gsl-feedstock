@@ -30,7 +30,7 @@ if [[ "$target_platform" == win* ]]; then
     done
 fi
 
-make check
+make check || (cat block/test-suite.log && exit 1)
 
 ls -al "$PREFIX"/lib
 ls -al "$PREFIX"/bin
