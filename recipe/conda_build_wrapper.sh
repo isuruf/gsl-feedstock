@@ -15,6 +15,8 @@ export lt_cv_deplibs_check_method=pass_all
 echo "You need to run patch_libtool bash function after configure to fix the libtool script."
 echo "If your package uses OpenMP, add llvm-openmp to your host and run requirements."
 
+cp $RECIPE_DIR/create_def.sh .
+
 patch_libtool () {
     # libtool has support for exporting symbols using either nm or dumpbin with some creative use of sed and awk,
     # but neither works correctly with C++ mangling schemes.
@@ -22,7 +24,7 @@ patch_libtool () {
     sed -i.bak "s/export_symbols_cmds=/export_symbols_cmds2=/g" libtool
     sed "s/archive_expsym_cmds=/archive_expsym_cmds2=/g" libtool > libtool2
     echo "#!/bin/bash" > libtool
-    echo "export_symbols_cmds=\"echo \\\$libobjs \\\$convenience | \\\$SED 's/ /\n/g'  > \\\$export_symbols.tmp && cmake -E __create_def \\\$export_symbols \\\$export_symbols.tmp\"" >> libtool
+    echo "export_symbols_cmds=\"$SRC_DIR/create_def.sh \\\$export_symbols.tmp \\\$libobjs \\\$convenience \"" >> libtool
     echo "archive_expsym_cmds=\"\\\$CC -o \\\$tool_output_objdir\\\$soname \\\$libobjs \\\$compiler_flags \\\$deplibs -Wl,-DEF:\\\\\\\"\\\$export_symbols\\\\\\\" -Wl,-DLL,-IMPLIB:\\\\\\\"\\\$tool_output_objdir\\\$libname.dll.lib\\\\\\\"; echo \"" >> libtool
     cat libtool2 >> libtool
 }
