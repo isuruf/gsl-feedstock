@@ -19,17 +19,17 @@ do
         # Use ar t to get a file list and this extract by filename
         # and send that file to the back, so that files with the same name
         # are extracted
-        file_list="$($AR t static_lib.lib | sort)"
+        file_list="$($AR t static_lib.lib)"
         for file in $file_list; do
             ${AR} x $extract_dir/static_lib.lib $file
             sha256=$(sha256sum $file | cut -d " " -f 1)
             mv $file ${sha256}_${file}
             ${AR} m static_lib.lib $file
-            echo "$extract_dir/$sha256_$file" >> $tmp_dir/symbol_list.txt
+            cygpath -w "$extract_dir/${sha256}_${file}" >> $tmp_dir/symbol_list.txt
         done
         popd > /dev/null
     else
-        echo "$arg" >> $tmp_dir/symbol_list.txt
+        cygpath -w "$arg" >> $tmp_dir/symbol_list.txt
     fi
 done
 
