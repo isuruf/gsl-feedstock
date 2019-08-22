@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 export PATH="$PREFIX/bin:$BUILD_PREFIX/Library/bin:$SRC_DIR:$PATH"
 export CC=clang.exe
 export CXX=clang++.exe
@@ -6,16 +9,14 @@ export AS=llvm-as
 export AR=llvm-ar
 export NM=llvm-nm
 export LD=lld-link
-export CFLAGS="-I$PREFIX/include -O2 -D_CRT_SECURE_NO_WARNINGS"
-export CXXFLAGS="-I$PREFIX/include -O2 -D_CRT_SECURE_NO_WARNINGS"
-export CPPFLAGS="-I$PREFIX/include -O2 -D_CRT_SECURE_NO_WARNINGS"
-export LDFLAGS="-L$PREFIX/lib -v"
+export CFLAGS="-I$PREFIX/include -O2 -D_CRT_SECURE_NO_WARNINGS -D_DLL -D_MT"
+export CXXFLAGS="$CFLAGS"
+export CPPFLAGS="$CFLAGS"
+export LDFLAGS="-L$PREFIX/lib -Wl,-nodefaultlib:libcmt.lib -Wl,-defaultlib:msvrt.lib -v"
 export lt_cv_deplibs_check_method=pass_all
 
 echo "You need to run patch_libtool bash function after configure to fix the libtool script."
 echo "If your package uses OpenMP, add llvm-openmp to your host and run requirements."
-
-cp $RECIPE_DIR/create_def.sh .
 
 patch_libtool () {
     # libtool has support for exporting symbols using either nm or dumpbin with some creative use of sed and awk,
@@ -40,8 +41,10 @@ fi
 
 source ./build.sh
 
-if [[ -f "${PREFIX}/lib/${PKG_NAME}.lib" && -f "${PREFIX}/lib/${PKG_NAME}.dll.lib" ]]; then
-    mv "${PREFIX}/lib/${PKG_NAME}.lib"     "${PREFIX}/lib/${PKG_NAME}_static.lib"
+if [[  -f "${PREFIX}/lib/${PKG_NAME}.dll.lib" ]]; then
+    if [[ -f "${PREFIX}/lib/${PKG_NAME}.lib" ]]; then
+        mv "${PREFIX}/lib/${PKG_NAME}.lib" "${PREFIX}/lib/${PKG_NAME}_static.lib"
+    fi
     mv "${PREFIX}/lib/${PKG_NAME}.dll.lib" "${PREFIX}/lib/${PKG_NAME}.lib"
 fi
 
