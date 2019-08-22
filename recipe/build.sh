@@ -3,9 +3,9 @@
 # https://github.com/conda-forge/gsl-feedstock/issues/34#issuecomment-449305702
 if [[ "$target_platform" == win* ]]; then
     export LIBS="-lcblas"
-    export CPPFLAGS="$CPPFLAGS -DGSL_DLL"
-    export CXXFLAGS="$CXXFLAGS -DGSL_DLL"
-    export CFLAGS="$CFLAGS -DGSL_DLL"
+    export CPPFLAGS="$CPPFLAGS -DGSL_DLL -DWIN32"
+    export CXXFLAGS="$CXXFLAGS -DGSL_DLL -DWIN32"
+    export CFLAGS="$CFLAGS -DGSL_DLL -DWIN32"
     ./configure --prefix=${PREFIX} \
                 --disable-static || (cat config.log && exit 1)
     cat config.log
