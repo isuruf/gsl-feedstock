@@ -8,6 +8,7 @@ if [[ "$target_platform" == win* ]]; then
     export CFLAGS="$CFLAGS -DGSL_DLL"
     ./configure --prefix=${PREFIX} \
                 --disable-static || (cat config.log && exit 1)
+    cat config.log
 else
     export LIBS="-lcblas -lm"
     ./configure --prefix=${PREFIX}  \
