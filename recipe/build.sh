@@ -20,8 +20,16 @@ fi
 [[ "$target_platform" == "win-64" ]] && patch_libtool
 
 make -j${CPU_COUNT} ${VERBOSE_AT}
-make check
 make install
+
+# Don't link with the convenience libraries as they don't contain __imp_*
+if [[ "$target_platform" == win* ]]; then
+    for f in $(find . -wholename "./*/.libs/*.lib" -not -wholename "./blas/*"  -not -wholename "./cblas/*"); do
+        cp .libs/gsl.dll.lib $f
+    done
+fi
+
+make check
 
 ls -al "$PREFIX"/lib
 ls -al "$PREFIX"/bin
