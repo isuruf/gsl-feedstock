@@ -6,7 +6,7 @@ shift
 tmp_dir=$(mktemp -d)
 rm_dirs=()
 rm_dirs+=("$tmp_dir")
-touch $tmp_dir/symbol_list.def
+touch $tmp_dir/symbol_list.txt
 
 for arg in "$@"
 do
@@ -25,15 +25,15 @@ do
             sha256=$(sha256sum $file | cut -d " " -f 1)
             mv $file ${sha256}_${file}
             ${AR} m static_lib.lib $file
-            echo "$extract_dir/$sha256_$file" >> $tmp_dir/symbol_list.def
+            echo "$extract_dir/$sha256_$file" >> $tmp_dir/symbol_list.txt
         done
         popd > /dev/null
     else
-        echo "$arg" >> $tmp_dir/symbol_list.def
+        echo "$arg" >> $tmp_dir/symbol_list.txt
     fi
 done
 
-cmake -E __create_def $tmp_dir/symbol_list.def $def_file
+cmake -E __create_def $def_file $tmp_dir/symbol_list.txt
 
 for dir in "${rm_dirs[@]}"
 do

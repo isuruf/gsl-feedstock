@@ -3,12 +3,17 @@
 # https://github.com/conda-forge/gsl-feedstock/issues/34#issuecomment-449305702
 if [[ "$target_platform" == win* ]]; then
     export LIBS="-lcblas"
+    export CPPFLAGS="$CPPFLAGS -DGSL_DLL"
+    export CXXFLAGS="$CXXFLAGS -DGSL_DLL"
+    export CFLAGS="$CFLAGS -DGSL_DLL"
+    ./configure --prefix=${PREFIX} \
+                --disable-static || (cat config.log && exit 1)
 else
     export LIBS="-lcblas -lm"
+    ./configure --prefix=${PREFIX}  \
+                --host=${HOST} || (cat config.log && exit 1)
 fi
 
-./configure --prefix=${PREFIX}  \
-            --host=${HOST} || (cat config.log && exit 1)
 
 [[ "$target_platform" == "win-64" ]] && patch_libtool
 
