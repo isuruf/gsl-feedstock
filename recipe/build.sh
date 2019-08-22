@@ -45,6 +45,6 @@ elif [[ "$target_platform" == linux* ]]; then
     touch "$PREFIX/lib/libcblas.so.3"
 elif [[ "$target_platform" == linux* ]]; then
     rm "$PREFIX/lib/gslcblas.dll.lib"
-    rm "$PREFIX/bin/gslcblas-0.dl"
+    rm "$PREFIX/bin/gslcblas-0.dll"
     cp "$PREFIX/lib/cblas.lib" "$PREFIX/lib/gslcblas.lib"
 fi
