@@ -4,7 +4,7 @@
 export LIBS="-lcblas -lm"
 
 ./configure --prefix=${PREFIX}  \
-            --host=${HOST}
+            --host=${HOST} || (cat config.log && exit 1)
 
 [[ "$target_platform" == "win-64" ]] && patch_libtool
 
