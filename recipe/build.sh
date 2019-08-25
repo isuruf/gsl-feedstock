@@ -29,6 +29,7 @@ if [[ "$target_platform" == win* ]]; then
     #    cp .libs/gsl.dll.lib $f
     #done
     # There are some numerical issues with the tests as well. So disable for now. CMake build didn't run tests either.
+    echo "no check on windows"
 else
     make check
 fi
