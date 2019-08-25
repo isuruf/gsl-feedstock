@@ -8,7 +8,7 @@ source:
   url: http://ftp.gnu.org/gnu/gsl/gsl-{{ version }}.tar.gz
   sha256: 0460ad7c2542caaddc6729762952d345374784100223995eb14d614861f2258d
   patches:
-    # diff from source distribution to https://github.com/ampl/gsl/tree/v2.4.0
+    # Taken from https://github.com/ampl/gsl/tree/v2.4.0
     - patch_cmake_for_windows.diff  # [win]
 
 build:
@@ -33,14 +33,16 @@ test:
     - gsl-config --prefix  # [not win]
     - if not exist %LIBRARY_LIB%\\gsl.lib       exit 1   # [win]
     - if not exist %LIBRARY_LIB%\\gslcblas.lib  exit 1   # [win]
-    - if not exist %LIBRARY_BIN%\\gsl.dll       exit 1   # [win]
-    - ls -al $PREFIX/lib/libgslcblas{{ SHLIB_EXT }}  # [not win]
-    - ls -al $PREFIX/lib/libgslcblas*{{ SHLIB_EXT }}*  # [not win]
+    - if not exist %LIBRARY_BIN%\\gsl*.dll      exit 1   # [win]
+    - test -f $PREFIX/lib/libgslcblas{{ SHLIB_EXT }}     # [not win]
+    - test -f $PREFIX/lib/libgslcblas*{{ SHLIB_EXT }}*   # [not win]
 
 about:
   home: http://www.gnu.org/software/gsl/
   license: GPL-3.0
-  license_file: COPYING
+  license_file:
+    - COPYING
+    - getopt_LICENSE.txt  # [win]
   summary: 'GNU Scientific Library'
 
 extra:

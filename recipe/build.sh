@@ -20,18 +20,21 @@ fi
 
 [[ "$target_platform" == "win-64" ]] && patch_libtool
 
-make -j${CPU_COUNT} ${VERBOSE_AT}
-make install
 
 # Don't link with the convenience libraries as they don't contain __imp_*
 if [[ "$target_platform" == win* ]]; then
-    #for f in $(find . -wholename "./*/.libs/*.lib" -not -wholename "./blas/*"  -not -wholename "./cblas/*"); do
-    #    cp .libs/gsl.dll.lib $f
-    #done
+    make -j${CPU_COUNT} -k
+    for f in $(find . -wholename "./*/.libs/*.lib" -not -wholename "./blas/*"  -not -wholename "./cblas/*"); do
+        cp .libs/gsl.dll.lib $f
+    done
+    make -j${CPU_COUNT}
+    make install
     # There are some numerical issues with the tests as well. So disable for now. CMake build didn't run tests either.
     echo "no check on windows"
 else
+    make -j${CPU_COUNT}
     make check
+    make install
 fi
 
 ls -al "$PREFIX"/lib
