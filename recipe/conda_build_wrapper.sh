@@ -9,11 +9,10 @@ export AS=llvm-as
 export AR=llvm-ar
 export NM=llvm-nm
 export LD=lld-link
-export CFLAGS="-I$PREFIX/include -O2 -D_CRT_SECURE_NO_WARNINGS -D_MT -D_DLL -v"
+export CFLAGS="-I$PREFIX/include -O2 -D_CRT_SECURE_NO_WARNINGS -D_MT -D_DLL -nostdlib -Xclang --dependent-lib=msvcrt -fuse-ld=lld"
 export CXXFLAGS="$CFLAGS"
 export CPPFLAGS="$CFLAGS"
-#export LIBS="-lmsvcrt"
-export LDFLAGS="-L$PREFIX/lib -v -fuse-ld=lld -lmsvcrt -Xcompiler -nostdlib"
+export LDFLAGS="-L$PREFIX/lib -fuse-ld=lld -nostdlib -Xclang --dependent-lib=msvcrt"
 export lt_cv_deplibs_check_method=pass_all
 
 echo "You need to run patch_libtool bash function after configure to fix the libtool script."
